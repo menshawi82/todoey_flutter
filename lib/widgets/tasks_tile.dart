@@ -5,9 +5,10 @@ class TaskTile extends StatelessWidget {
   final bool isChecked ;
   final String taskTitle;
   final  checkboxCallback;
+  final titleCallback;
 
 
-TaskTile({required this.isChecked,required this.taskTitle,required this.checkboxCallback});
+TaskTile({required this.isChecked,required this.taskTitle,required this.checkboxCallback, this.titleCallback});
 
 
   @override
@@ -17,12 +18,14 @@ TaskTile({required this.isChecked,required this.taskTitle,required this.checkbox
         taskTitle,
         style: TextStyle(
             decoration: isChecked ? TextDecoration.lineThrough : null),
+
       ),
       trailing: Checkbox(
         activeColor: Colors.lightBlueAccent,
         value: isChecked,
        onChanged:  checkboxCallback
-      )
+      ),
+      onLongPress: titleCallback,
       );
 
   }

@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/models/task.dart';
 import 'package:todoey/widgets/tasks_list.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task_data.dart';
 
 import 'add_task_screen.dart';
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
 
 
-
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'buy milk'),
-    Task(name: 'buy eggs'),
-    Task(name: 'buy bread'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +17,20 @@ class _TasksScreenState extends State<TasksScreen> {
       backgroundColor: Colors.lightBlueAccent,
       /*================ Floating Action Button ================================*/
       floatingActionButton: FloatingActionButton(
-        /*============ show Modal BottomSheet   ============*/
+        backgroundColor: Colors.lightBlueAccent,
+        child: Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(),
               ),
             ),
           );
         },
-        backgroundColor: Colors.lightBlueAccent,
-        child: Icon(Icons.add),
-
 
 
 
@@ -74,7 +61,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '12 tasks',
+                 '${ Provider.of<TaskData>(context).taskCount} tasks',
 
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
@@ -92,7 +79,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TasksList(tasks),
+              child: TasksList(),
             ),
           )
         ],
